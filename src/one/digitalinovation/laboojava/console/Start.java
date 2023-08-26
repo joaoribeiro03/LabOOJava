@@ -73,6 +73,8 @@ public class Start {
                     produtoNegocio.excluir(codigoLivro);
                     break;
                 case "3":
+                	Caderno caderno = LeitoraDados.lerCaderno();
+                	produtoNegocio.salvar(caderno);
                     //TODO Cadastrar Caderno
                     break;
                 case "4":
