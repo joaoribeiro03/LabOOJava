@@ -1,12 +1,12 @@
 package one.digitalinovation.laboojava.negocio;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import one.digitalinovation.laboojava.basedados.Banco;
 import one.digitalinovation.laboojava.entidade.Cupom;
 import one.digitalinovation.laboojava.entidade.Pedido;
 import one.digitalinovation.laboojava.entidade.Produto;
-
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Classe para manipular a entidade {@link Pedido}.
@@ -60,12 +60,21 @@ public class PedidoNegocio {
         //Definir padrão código
         //Pegar data do dia corrente
         //Formatar código
+    	
+    	String codigo = "PE%4d%2d%04d";
+    	LocalDate hoje = LocalDate.now();
+    	codigo = String.format(codigo, hoje.getYear(), hoje.getMonthValue(), bancoDados.getPedidos().length);
 
         //Setar código no pedido
+    	novoPedido.setCodigo(codigo);
         //Setar cliente no pedido
+    	novoPedido.setCliente(bancoDados.getCliente());
         //Calcular e set total
+    	novoPedido.setTotal(calcularTotal(novoPedido.getProdutos(), cupom));
         //Adicionar no banco
+    	bancoDados.adicionarPedido(novoPedido);
         //Mensagem
+        System.out.println("Pedido salvo com sucesso.");
     }
 
     /**
