@@ -1,13 +1,17 @@
 package one.digitalinovation.laboojava.console;
 
+import java.util.Optional;
+
 import one.digitalinovation.laboojava.basedados.Banco;
-import one.digitalinovation.laboojava.entidade.*;
+import one.digitalinovation.laboojava.entidade.Caderno;
+import one.digitalinovation.laboojava.entidade.Cliente;
+import one.digitalinovation.laboojava.entidade.Cupom;
+import one.digitalinovation.laboojava.entidade.Livro;
+import one.digitalinovation.laboojava.entidade.Pedido;
 import one.digitalinovation.laboojava.negocio.ClienteNegocio;
 import one.digitalinovation.laboojava.negocio.PedidoNegocio;
 import one.digitalinovation.laboojava.negocio.ProdutoNegocio;
 import one.digitalinovation.laboojava.utilidade.LeitoraDados;
-
-import java.util.Optional;
 
 /**
  * Classe responsável por controlar a execução da aplicação.
@@ -75,9 +79,11 @@ public class Start {
                 case "3":
                 	Caderno caderno = LeitoraDados.lerCaderno();
                 	produtoNegocio.salvar(caderno);
-                    //TODO Cadastrar Caderno
                     break;
                 case "4":
+                	System.out.println("Digite o código do caderno");
+                	String codigoCaderno = LeitoraDados.lerDado();
+                	produtoNegocio.excluir(codigoCaderno);
                     //TODO Excluir Caderno
                     break;
                 case "5":
@@ -99,7 +105,7 @@ public class Start {
                     produtoNegocio.listarTodos();
                     break;
                 case "8":
-                    //TODO Listar todos os Pedidos
+                    pedidoNegocio.listarPedidos();
                     break;
                 case "9":
                     System.out.println(String.format("Volte sempre %s!", clienteLogado.getNome()));

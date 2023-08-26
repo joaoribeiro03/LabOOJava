@@ -7,85 +7,98 @@ import java.util.Optional;
 
 /**
  * Classe para manipular a entidade {@link Produto}.
+ * 
  * @author thiago leite
  */
 public class ProdutoNegocio {
 
-    /**
-     * {@inheritDoc}.
-     */
-    private Banco bancoDados;
+	/**
+	 * {@inheritDoc}.
+	 */
+	private Banco bancoDados;
 
-    /**
-     * Construtor.
-     * @param banco Banco de dados para ter armazenar e ter acesso os produtos
-     */
-    public ProdutoNegocio(Banco banco) {
-        this.bancoDados = banco;
-    }
+	/**
+	 * Construtor.
+	 * 
+	 * @param banco Banco de dados para ter armazenar e ter acesso os produtos
+	 */
+	public ProdutoNegocio(Banco banco) {
+		this.bancoDados = banco;
+	}
 
-    /**
-     * Salva um novo produto(livro ou caderno) na loja.
-     * @param novoProduto Livro ou caderno que pode ser vendido
-     */
-    public void salvar(Produto novoProduto) {
+	/**
+	 * Salva um novo produto(livro ou caderno) na loja.
+	 * 
+	 * @param novoProduto Livro ou caderno que pode ser vendido
+	 */
+	public void salvar(Produto novoProduto) {
 
-        String codigo = "PR%04d";
-        codigo = String.format(codigo, bancoDados.getProdutos().length);
-        novoProduto.setCodigo(codigo);
+		String codigo = "PR%04d";
+		codigo = String.format(codigo, bancoDados.getProdutos().length);
+		novoProduto.setCodigo(codigo);
 
-        boolean produtoRepetido = false;
-        for (Produto produto: bancoDados.getProdutos()) {
-            if (produto.getCodigo() == novoProduto.getCodigo()) {
-                produtoRepetido = true;
-                System.out.println("Produto já cadastrado.");
-                break;
-            }
-        }
+		boolean produtoRepetido = false;
+		for (Produto produto : bancoDados.getProdutos()) {
+			if (produto.getCodigo() == novoProduto.getCodigo()) {
+				produtoRepetido = true;
+				System.out.println("Produto já cadastrado.");
+				break;
+			}
+		}
 
-        if (!produtoRepetido) {
-            this.bancoDados.adicionarProduto(novoProduto);
-            System.out.println("Produto cadastrado com sucesso.");
-        }
-    }
+		if (!produtoRepetido) {
+			this.bancoDados.adicionarProduto(novoProduto);
+			System.out.println("Produto cadastrado com sucesso.");
+		}
+	}
 
-    /**
-     * Exclui um produto pelo código de cadastro.
-     * @param codigo Código de cadastro do produto
-     */
-    public void excluir(String codigo) {
-        //TODO Implementar a exclusão
-    }
+	/**
+	 * Exclui um produto pelo código de cadastro.
+	 * 
+	 * @param codigo Código de cadastro do produto
+	 */
+	public void excluir(String codigo) {
+		// TODO Implementar a exclusão
+		for (int i = 0; i < bancoDados.getProdutos().length; i++) {
+			
+			if (bancoDados.getProdutos()[i].getCodigo().equals(codigo)) {
+				bancoDados.removerProduto(i);
+				break;
+			}
+		}
 
-    /**
-     * Obtem um produto a partir de seu código de cadastro.
-     * @param codigo Código de cadastro do produto
-     * @return Optional indicando a existência ou não do Produto
-     */
-    public Optional<Produto> consultar(String codigo) {
+	}
 
-        for (Produto produto: bancoDados.getProdutos()) {
+	/**
+	 * Obtem um produto a partir de seu código de cadastro.
+	 * 
+	 * @param codigo Código de cadastro do produto
+	 * @return Optional indicando a existência ou não do Produto
+	 */
+	public Optional<Produto> consultar(String codigo) {
 
-            if (produto.getCodigo().equalsIgnoreCase(codigo)) {
-                return  Optional.of(produto);
-            }
-        }
+		for (Produto produto : bancoDados.getProdutos()) {
 
-        return Optional.empty();
-    }
+			if (produto.getCodigo().equalsIgnoreCase(codigo)) {
+				return Optional.of(produto);
+			}
+		}
 
-    /**
-     * Lista todos os produtos cadastrados.
-     */
-    public void listarTodos() {
+		return Optional.empty();
+	}
 
-        if (bancoDados.getProdutos().length == 0) {
-            System.out.println("Não existem produtos cadastrados");
-        } else {
+	/**
+	 * Lista todos os produtos cadastrados.
+	 */
+	public void listarTodos() {
 
-            for (Produto produto: bancoDados.getProdutos()) {
-                System.out.println(produto.toString());
-            }
-        }
-    }
+		if (bancoDados.getProdutos().length == 0) {
+			System.out.println("Não existem produtos cadastrados");
+		} else {
+
+			for (Produto produto : bancoDados.getProdutos()) {
+				System.out.println(produto.toString());
+			}
+		}
+	}
 }
