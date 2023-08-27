@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import one.digitalinovation.laboojava.basedados.Banco;
 import one.digitalinovation.laboojava.entidade.Caderno;
+import one.digitalinovation.laboojava.entidade.Cliente;
 import one.digitalinovation.laboojava.entidade.Cupom;
 import one.digitalinovation.laboojava.entidade.Livro;
 import one.digitalinovation.laboojava.entidade.Pedido;
@@ -15,6 +16,7 @@ import one.digitalinovation.laboojava.negocio.ProdutoNegocio;
 
 /**
  * Classe utilitária para auxiliar na leitura de entradas de dados via teclado.
+ * 
  * @author thiago leite
  */
 public final class LeitoraDados {
@@ -23,24 +25,26 @@ public final class LeitoraDados {
 	 * Classe do Java para manipular entradas via teclado.
 	 */
 	private static Scanner scanner;
-	
+
 	static {
 		scanner = new Scanner(System.in);
 	}
 
 	/**
 	 * Ler um dado específico
+	 * 
 	 * @return Dado lido
 	 */
 	public static String lerDado() {
-		
+
 		String texto = scanner.nextLine();
-		
+
 		return texto;
 	}
 
 	/**
 	 * Ler os dados do livro a ser cadastrado.
+	 * 
 	 * @return Um livro a partir dos dados de entrada
 	 */
 	public static Livro lerLivro() {
@@ -65,32 +69,48 @@ public final class LeitoraDados {
 
 	/**
 	 * Ler os dados do caderno a ser cadastrado.
+	 * 
 	 * @return Um caderno a partir dos dados de entrada
 	 */
-	//TODO Método para ler o caderno
+	// TODO Método para ler o caderno
 
 	/**
 	 * Ler os dados do pedido e retorna um objeto a partir destes.
+	 * 
 	 * @return Um pedido a partir dos dados de entrada
 	 */
-	
+
 	public static Caderno lerCaderno() {
-		
+
 		System.out.println("Cadastrando Caderno...");
 		Caderno caderno = new Caderno();
-		
+
 		System.out.println("Digite a quantidade de matérias do caderno: M2, M5 e M10 ");
 		String materias = lerDado();
 		caderno.setMaterias(Materias.valueOf(materias.toUpperCase()));
-		
+
 		System.out.println("Digite o preço(padrão 0.0)");
 		String preco = lerDado();
 		caderno.setPreco(Double.parseDouble(preco));
-		
+
 		return caderno;
 	}
 	
-	
+	public static Cliente lerCliente () {
+		System.out.println("Cadastrando Cliente...");
+		Cliente cliente = new Cliente();
+		
+		System.out.println("Digite seu nome: ");
+		String nome = lerDado();
+		cliente.setNome(nome);
+		
+		System.out.println("Digite seu cpf: ");
+		String cpf = lerDado();
+		cliente.setCpf(cpf);
+		
+		return cliente;
+	}
+
 	public static Pedido lerPedido(Banco banco) {
 
 		ProdutoNegocio produtoNegocio = new ProdutoNegocio(banco);
@@ -120,22 +140,24 @@ public final class LeitoraDados {
 
 			System.out.println("Deseja selecionar mais um produto? s/n");
 			opcao = lerDado();
-		} while("s".equals(opcao));
+		} while ("s".equals(opcao));
 
 		return pedido;
 	}
 
 	/**
 	 * Ler os dados do cupom e retorna um objeto a partir destes.
+	 * 
 	 * @return O cupom a partir dos dados de entrada
 	 */
 	public static Optional<Cupom> lerCupom(Banco banco) {
 
-		System.out.println("Caso queira utilizar algum cupom escolha entre: CUPOM2, CUPOM5, CUPOM7. Se não desejar, deixe em branco.");
+		System.out.println(
+				"Caso queira utilizar algum cupom escolha entre: CUPOM2, CUPOM5, CUPOM7. Se não desejar, deixe em branco.");
 
 		String desconto = lerDado();
 
-		for (Cupom cupom: banco.getCupons()) {
+		for (Cupom cupom : banco.getCupons()) {
 			if (cupom.getCodigo().equalsIgnoreCase(desconto)) {
 				return Optional.of(cupom);
 			}

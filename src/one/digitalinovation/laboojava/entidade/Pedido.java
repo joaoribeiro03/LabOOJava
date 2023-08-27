@@ -12,7 +12,7 @@ import java.util.List;
 public class Pedido {
 
 	private String codigo;
-	private Cliente cliente;
+	private List<Cliente> clientes;
 	private List<Produto> produtos;
 	private double total;
 
@@ -28,12 +28,12 @@ public class Pedido {
 		this.codigo = codigo;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public List<Cliente> getCliente() {
+		return clientes;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setCliente(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 	public List<Produto> getProdutos() {
@@ -69,7 +69,7 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [codigo=" + codigo + ", cliente=" + cliente + ", produtos=" + getProdutosComprados() + ", total="
+		return "Pedido [codigo=" + codigo + ", cliente=" + clientes + ", produtos=" + getProdutosComprados() + ", total="
 				+ total + "]";
 	}
 

@@ -1,9 +1,11 @@
 package one.digitalinovation.laboojava.negocio;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import one.digitalinovation.laboojava.basedados.Banco;
+import one.digitalinovation.laboojava.entidade.Cliente;
 import one.digitalinovation.laboojava.entidade.Cupom;
 import one.digitalinovation.laboojava.entidade.Pedido;
 import one.digitalinovation.laboojava.entidade.Produto;
@@ -72,7 +74,7 @@ public class PedidoNegocio {
 		// Setar código no pedido
 		novoPedido.setCodigo(codigo);
 		// Setar cliente no pedido
-		novoPedido.setCliente(bancoDados.getCliente());
+		novoPedido.getCliente();
 		// Calcular e set total
 		novoPedido.setTotal(calcularTotal(novoPedido.getProdutos(), cupom));
 		// Adicionar no banco
